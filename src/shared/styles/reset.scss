@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+:root {
+  line-height: 1.5;
+  tab-size: 4;
+  cursor: default;
+  -webkit-tap-highlight-color: transparent;
+  text-size-adjust: 100%;
+  overflow-wrap: break-word;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+a,
+a:active,
+a:hover {
+  text-decoration: none;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+dl,
+li,
+menu,
+ol,
+ul {
+  list-style: none;
+}
+
+textarea,
+input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  box-shadow: none;
+  resize: none;
+}
+
+/* Chrome autofill 스타일 제거, 커스텀 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 9999s ease-out;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: 0 0 0 1000px transparent inset;
+}
