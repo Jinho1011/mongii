@@ -1,10 +1,15 @@
-import Container from "@/features/dashboard/Container";
-import Head from "next/head";
+import Widget from "@/features/dashboard/Widget";
+import createEngine, {
+  DefaultNodeModel,
+  DefaultLinkModel,
+  DiagramModel,
+} from "@projectstorm/react-diagrams";
+import dynamic from "next/dynamic";
 
 export default function Home() {
-  return (
-    <main>
-      <Container>node</Container>
-    </main>
-  );
+  const WidgetComponent = dynamic(() => import("@/features/dashboard/Widget"), {
+    ssr: false,
+  });
+
+  return <WidgetComponent />;
 }
