@@ -1,0 +1,18 @@
+.fog-node {
+  position: "relative";
+  background: #ffffff;
+  box-shadow: 0px 16px 20px 10px rgba(0, 0, 0, 0.02);
+  border-radius: 20px;
+}
+
+.port {
+  width: 16px;
+  height: 16px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, 1);
+  }
+}
