@@ -23,7 +23,6 @@ const FodNodeWidget = (props: FogNodeWidgetProps) => {
   const [isExpanded, setExpanded] = useState(false);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
-  // className={cx('')}
   return (
     <div className={cx("node-container")}>
       <div
@@ -64,14 +63,14 @@ const FodNodeWidget = (props: FogNodeWidgetProps) => {
       </div>
       <PortWidget
         style={{
-          top: "50%",
-          right: -8,
+          top: "40%",
+          right: -10,
           position: "absolute",
         }}
         port={props.node.getPort(PortModelAlignment.RIGHT)!}
         engine={props.engine}
       >
-        {/* <div className={cx("port")} /> */}
+        <div className={cx("port")} />
       </PortWidget>
     </div>
   );

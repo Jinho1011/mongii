@@ -19,6 +19,13 @@ export class FogPortModel extends PortModel {
   createLinkModel(): LinkModel {
     return new DefaultLinkModel();
   }
+
+  link<T extends LinkModel>(port: PortModel): T {
+    let link = this.createLinkModel();
+    link.setSourcePort(this);
+    link.setTargetPort(port);
+    return link as T;
+  }
 }
 
 export interface FogNodeModelGenerics {
