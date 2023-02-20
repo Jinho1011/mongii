@@ -1,49 +1,79 @@
 import createEngine, {
-  DefaultLinkModel,
   DefaultNodeModel,
-  DiagramEngine,
+  PortModelAlignment,
   DiagramModel,
+  PortModel,
+  BaseEvent,
 } from "@projectstorm/react-diagrams";
 import classNames from "classnames/bind";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import styles from "./Widget.module.scss";
-import { FogNodeModel } from "../Node/FogNode/FogNodeModel";
+import { FogNodeModel, FogPortModel } from "../Node/FogNode/FogNodeModel";
 import { FogNodeFactory } from "../Node/FogNode/FogNodeFactory";
+import { EdgeNodeFactory } from "../Node/EdgeNode/EdgeNodeFactory";
+import { EdgeNodeModel, EdgePortModel } from "../Node/EdgeNode/EdgeNodeModel";
+import { SimplePortFactory } from "../Node/SimplePortFactory";
+import { Nodes } from "@/pages";
 
 const cx = classNames.bind(styles);
 
-interface WidgetProps {}
+interface WidgetProps {
+  data: Nodes;
+}
 
-const Widget = ({}: WidgetProps) => {
+const Widget = ({ data }: WidgetProps) => {
   const engine = createEngine();
 
   engine.getNodeFactories().registerFactory(new FogNodeFactory());
+  engine
+    .getPortFactories()
+    .registerFactory(
+      new SimplePortFactory(
+        "fog",
+        (config) => new FogPortModel(PortModelAlignment.RIGHT)
+      )
+    );
+  engine.getNodeFactories().registerFactory(new EdgeNodeFactory());
+  engine
+    .getPortFactories()
+    .registerFactory(
+      new SimplePortFactory(
+        "edge",
+        (config) => new EdgePortModel(PortModelAlignment.LEFT)
+      )
+    );
 
-  const fog1 = new FogNodeModel("fog node 1");
-  fog1.setPosition(100, 100);
+  const fog = new FogNodeModel("fog node 1");
+  const fogPort = fog.getPort(PortModelAlignment.RIGHT);
+  fog.setPosition(100, 100);
 
-  // node 1
-  const node1 = new DefaultNodeModel({
-    name: "Node 1",
-    color: "rgb(0,192,255)",
-  });
-  node1.setPosition(200, 100);
-  let port1 = node1.addOutPort("Out");
+  const edge = new EdgeNodeModel("edge node 1");
+  const edgePort = edge.getPort(PortModelAlignment.LEFT);
+  edge.setPosition(600, 100);
 
-  // node 2
-  const node2 = new DefaultNodeModel({
-    name: "Node 2",
-    color: "rgb(126, 130, 40)",
-  });
-  node2.setPosition(200, 400);
-  let port2 = node2.addInPort("In");
+  const edge2 = new EdgeNodeModel("edge node 2");
+  const edgePort2 = edge2.getPort(PortModelAlignment.LEFT);
+  edge2.setPosition(600, 400);
 
-  // link them and add a label to the link
-  const link = port2.link<DefaultLinkModel>(port1);
-  link.addLabel("module312");
+  const link1 = (fogPort as FogPortModel).link(edgePort as EdgePortModel);
+  const link2 = (fogPort as FogPortModel).link(edgePort2 as EdgePortModel);
 
   const model = new DiagramModel();
-  model.addAll(fog1);
+  const models = model.addAll(fog, edge, edge2, link1, link2);
+
+  // add a selection listener to each
+  models.forEach((item) =>
+    item.registerListener({
+      eventDidFire: (event: BaseEvent) => {
+        console.log("🚀 ~ file: Widget.tsx:65 ~ Widget ~ models:", models);
+      },
+    })
+  );
+
+  // model.registerListener({
+  //   eventDidFire: (event: BaseEvent) => console.log(models),
+  // });
+
   // model.setLocked(true);
 
   // const state = engine.getStateMachine().getCurrentState();
