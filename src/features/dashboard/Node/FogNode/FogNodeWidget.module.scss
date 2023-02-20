@@ -1,8 +1,66 @@
-.fog-node {
+.node-container {
   position: "relative";
-  background: #ffffff;
+  width: 360px;
+  background: $white;
   box-shadow: 0px 16px 20px 10px rgba(0, 0, 0, 0.02);
   border-radius: 20px;
+}
+
+.node-title-container {
+  padding: 20px 20px 16px;
+}
+
+.node-title {
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 20px;
+  color: #3a3943;
+}
+
+.divider {
+  padding: 0 20px;
+}
+
+.solid {
+  border-top: 1px solid #dadada;
+}
+
+.information-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+}
+
+.information-row {
+  display: flex;
+  align-items: center;
+}
+
+.information-value {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #79788a;
+}
+
+.information-label {
+  width: 80px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: #79788a;
+}
+
+.modules-container {
+  padding: 20px;
+}
+
+.modules {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .port {

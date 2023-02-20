@@ -43,7 +43,7 @@ const Widget = ({}: WidgetProps) => {
   link.addLabel("module312");
 
   const model = new DiagramModel();
-  model.addAll(fog1, node1, node2, link);
+  model.addAll(fog1);
   // model.setLocked(true);
 
   // const state = engine.getStateMachine().getCurrentState();

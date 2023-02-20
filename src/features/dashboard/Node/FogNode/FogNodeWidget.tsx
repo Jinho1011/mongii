@@ -5,9 +5,12 @@ import {
   PortModelAlignment,
   PortWidget,
 } from "@projectstorm/react-diagrams";
+import useCollapse from "react-collapsed";
+import classNames from "classnames/bind";
 
 import styles from "./FogNodeWidget.module.scss";
-import classNames from "classnames/bind";
+import { useState } from "react";
+import Module from "../Module";
 
 const cx = classNames.bind(styles);
 
@@ -17,14 +20,48 @@ export interface FogNodeWidgetProps {
 }
 
 const FodNodeWidget = (props: FogNodeWidgetProps) => {
+  const [isExpanded, setExpanded] = useState(false);
+  const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
+
+  // className={cx('')}
   return (
-    <div
-      className={cx("fog-node")}
-      style={{
-        width: 100,
-        height: 300,
-      }}
-    >
+    <div className={cx("node-container")}>
+      <div
+        className={cx("node-title-container")}
+        {...getToggleProps({
+          onClick: () => setExpanded((prevExpanded) => !prevExpanded),
+        })}
+      >
+        <h2 className={cx("node-title")}>{props.node.name}</h2>
+      </div>
+      <div {...getCollapseProps()}>
+        <div className={cx("divider")}>
+          <hr className={cx("solid")} />
+        </div>
+        <div className={cx("information-table")}>
+          <div className={cx("information-row")}>
+            <label className={cx("information-label")}>Status</label>
+            <span className={cx("information-value")}>Success</span>
+          </div>
+          <div className={cx("information-row")}>
+            <label className={cx("information-label")}>Status</label>
+            <span className={cx("information-value")}>Success</span>
+          </div>
+          <div className={cx("information-row")}>
+            <label className={cx("information-label")}>Status</label>
+            <span className={cx("information-value")}>Success</span>
+          </div>
+        </div>
+        <div className={cx("divider")}>
+          <hr className={cx("solid")} />
+        </div>
+        <div className={cx("modules-container")}>
+          <label className={cx("information-label")}>Modules</label>
+          <div className={cx("modules")}>
+            <Module />
+          </div>
+        </div>
+      </div>
       <PortWidget
         style={{
           top: "50%",
@@ -34,7 +71,7 @@ const FodNodeWidget = (props: FogNodeWidgetProps) => {
         port={props.node.getPort(PortModelAlignment.RIGHT)!}
         engine={props.engine}
       >
-        <div className={cx("port")} />
+        {/* <div className={cx("port")} /> */}
       </PortWidget>
     </div>
   );
