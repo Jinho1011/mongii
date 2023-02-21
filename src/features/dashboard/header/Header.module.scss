@@ -1,0 +1,32 @@
+.header-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: $white;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  align-items: center;
+}
+
+.logo-container {
+}
+
+.button-container {
+  display: flex;
+  gap: 14px;
+}
+
+.header-btn {
+  padding: 8px 14px;
+  border: 1px solid #e3e6f1;
+  border-radius: 12px;
+  color: #847c7c;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: #eff2fa;
+    color: rgb(0, 0, 0);
+  }
+}
