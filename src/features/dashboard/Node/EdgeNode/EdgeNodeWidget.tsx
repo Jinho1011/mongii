@@ -33,6 +33,7 @@ const EdgeNodeWidget = (props: EdgeNodeWidgetProps) => {
         })}
       >
         <h2 className={cx("node-title")}>{edge?.name}</h2>
+        <div className={cx("node-badge", "fog")}>Edge</div>
       </div>
       <div {...getCollapseProps()}>
         <div className={cx("divider")}>

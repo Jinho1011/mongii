@@ -33,7 +33,7 @@ const FodNodeWidget = (props: FogNodeWidgetProps) => {
         })}
       >
         <h2 className={cx("node-title")}>{node?.name}</h2>
-        <div className={cx("node-badge")}>Fog</div>
+        <div className={cx("node-badge", "edge")}>Fog</div>
       </div>
       <div {...getCollapseProps()}>
         <div className={cx("divider")}>

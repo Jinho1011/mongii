@@ -18,6 +18,20 @@
 }
 
 .node-badge {
+  position: absolute;
+  right: 30px;
+  top: -14px;
+  padding: 4px 16px 2px;
+  border-radius: 20px;
+  color: #414040;
+
+  &.fog {
+    background-color: #f8d5d5;
+  }
+
+  &.edge {
+    background-color: #c7d5ef;
+  }
 }
 
 .divider {
