@@ -1,5 +1,5 @@
 .header-container {
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
   background-color: $white;
@@ -20,6 +20,91 @@
 
 .header-btn {
   padding: 8px 14px;
+  border: 1px solid #e3e6f1;
+  border-radius: 12px;
+  color: #847c7c;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: #eff2fa;
+    color: rgb(0, 0, 0);
+  }
+}
+
+.form-divider {
+  padding: 10px 0;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50vw;
+  height: 80vh;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.form-label {
+  color: #847c7c;
+}
+
+.form-radio-container {
+  display: flex;
+  gap: 10px;
+}
+
+.form-radio-label {
+  color: #474444;
+}
+
+.form-input-radio {
+  margin-right: 4px;
+}
+
+.form-input {
+  padding: 8px 14px 6px;
+  border: 1px solid #e3e6f1;
+  border-radius: 12px;
+}
+
+.form-submit-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0;
+}
+
+.form-submit {
+  border-bottom: 3px solid #b3b0b0;
+  color: #847c7c;
+  transition: 0.2s;
+
+  &:hover {
+    border-bottom: 3px solid #464444;
+    color: #282727;
+  }
+}
+
+.form-module-container {
+  padding-bottom: 20px;
+}
+
+.form-module-title {
+  color: #464444;
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+
+.add-module-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 14px 6px;
   border: 1px solid #e3e6f1;
   border-radius: 12px;
   color: #847c7c;

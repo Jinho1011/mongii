@@ -26,7 +26,7 @@ export interface Edge {
   module: Module[];
 }
 
-export interface Node {
+export interface NodeType {
   node_id: number;
   ip: string;
   name: string;
@@ -38,7 +38,7 @@ export interface Node {
 }
 
 export interface Nodes {
-  data: Node[];
+  data: NodeType[];
   message: string;
 }
 
@@ -47,7 +47,7 @@ const data: Nodes = {
     {
       node_id: 1,
       ip: "12345",
-      name: "1234",
+      name: "fog node 1",
       info: "1234",
       created_date: "2023-02-17T02:00:16.000Z",
       updated_date: "2023-02-17T02:00:33.000Z",
@@ -245,7 +245,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header data={data.data} />
       <WidgetComponent data={data.data} />
     </>
   );

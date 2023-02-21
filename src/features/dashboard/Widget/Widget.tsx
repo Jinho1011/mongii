@@ -15,12 +15,12 @@ import { FogNodeFactory } from "../Node/FogNode/FogNodeFactory";
 import { EdgeNodeFactory } from "../Node/EdgeNode/EdgeNodeFactory";
 import { EdgeNodeModel, EdgePortModel } from "../Node/EdgeNode/EdgeNodeModel";
 import { SimplePortFactory } from "../Node/SimplePortFactory";
-import { Node } from "../../../pages";
+import { NodeType } from "../../../pages";
 
 const cx = classNames.bind(styles);
 
 interface WidgetProps {
-  data: Node[];
+  data: NodeType[];
 }
 
 const Widget = ({ data }: WidgetProps) => {
