@@ -7,7 +7,8 @@ export interface Module {
   name: string;
   info: string;
   priority: number;
-  edge_id: number;
+  edge_id: number | null;
+  node_id: number | null;
   created_date: string;
   updated_date: string;
 }
@@ -24,7 +25,7 @@ export interface Edge {
   module: Module[];
 }
 
-export interface Datum {
+export interface Node {
   node_id: number;
   ip: string;
   name: string;
@@ -32,10 +33,11 @@ export interface Datum {
   created_date: string;
   updated_date: string;
   edge: Edge[];
+  module: Module[];
 }
 
 export interface Nodes {
-  data: Datum[];
+  data: Node[];
   message: string;
 }
 
@@ -53,6 +55,30 @@ export default function Home() {
         info: "1234",
         created_date: "2023-02-17T02:00:16.000Z",
         updated_date: "2023-02-17T02:00:33.000Z",
+        module: [
+          {
+            module_id: 1,
+            ip: "11",
+            name: "11",
+            info: "111",
+            priority: 1,
+            edge_id: null,
+            node_id: 1,
+            created_date: "2023-02-20T17:06:36.000Z",
+            updated_date: "2023-02-20T18:07:26.000Z",
+          },
+          {
+            module_id: 2,
+            ip: "11",
+            name: "test",
+            info: "111",
+            priority: 2,
+            edge_id: null,
+            node_id: 1,
+            created_date: "2023-02-20T17:07:20.000Z",
+            updated_date: "2023-02-20T18:07:26.000Z",
+          },
+        ],
         edge: [
           {
             edge_id: 1,
@@ -71,6 +97,7 @@ export default function Home() {
                 info: "111",
                 priority: 1,
                 edge_id: 1,
+                node_id: null,
                 created_date: "2023-02-20T17:06:36.000Z",
                 updated_date: "2023-02-20T18:07:26.000Z",
               },
@@ -81,6 +108,7 @@ export default function Home() {
                 info: "111",
                 priority: 1,
                 edge_id: 1,
+                node_id: null,
                 created_date: "2023-02-20T17:07:20.000Z",
                 updated_date: "2023-02-20T18:07:26.000Z",
               },
@@ -103,6 +131,7 @@ export default function Home() {
                 info: "111",
                 priority: 1,
                 edge_id: 2,
+                node_id: null,
                 created_date: "2023-02-20T17:33:13.000Z",
                 updated_date: "2023-02-20T18:07:33.000Z",
               },
@@ -113,6 +142,7 @@ export default function Home() {
                 info: "111",
                 priority: 1,
                 edge_id: 2,
+                node_id: null,
                 created_date: "2023-02-20T17:33:14.000Z",
                 updated_date: "2023-02-20T18:07:33.000Z",
               },
@@ -150,19 +180,67 @@ export default function Home() {
         created_date: "2023-02-17T09:34:44.000Z",
         updated_date: "2023-02-17T09:34:44.000Z",
         edge: [],
+        module: [
+          {
+            module_id: 3,
+            ip: "11",
+            name: "test",
+            info: "111",
+            priority: 1,
+            edge_id: null,
+            node_id: 2,
+            created_date: "2023-02-20T17:33:13.000Z",
+            updated_date: "2023-02-20T18:07:33.000Z",
+          },
+          {
+            module_id: 4,
+            ip: "11",
+            name: "test",
+            info: "111",
+            priority: 1,
+            edge_id: null,
+            node_id: 2,
+            created_date: "2023-02-20T17:33:14.000Z",
+            updated_date: "2023-02-20T18:07:33.000Z",
+          },
+        ],
       },
       {
         node_id: 3,
         ip: "",
-        name: "",
+        name: "sacasd",
         info: "",
         created_date: "2023-02-19T06:39:09.000Z",
         updated_date: "2023-02-19T06:39:09.000Z",
         edge: [],
+        module: [
+          {
+            module_id: 3,
+            ip: "11",
+            name: "test",
+            info: "111",
+            priority: 1,
+            edge_id: null,
+            node_id: 3,
+            created_date: "2023-02-20T17:33:13.000Z",
+            updated_date: "2023-02-20T18:07:33.000Z",
+          },
+          {
+            module_id: 4,
+            ip: "11",
+            name: "test",
+            info: "111",
+            priority: 1,
+            edge_id: null,
+            node_id: 3,
+            created_date: "2023-02-20T17:33:14.000Z",
+            updated_date: "2023-02-20T18:07:33.000Z",
+          },
+        ],
       },
     ],
     message: "getAll",
   };
 
-  return <WidgetComponent data={data} />;
+  return <WidgetComponent data={data.data} />;
 }

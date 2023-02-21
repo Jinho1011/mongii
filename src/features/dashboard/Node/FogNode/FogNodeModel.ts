@@ -1,3 +1,4 @@
+import { Node } from "@/pages";
 import {
   NodeModel,
   NodeModelGenerics,
@@ -36,13 +37,13 @@ export interface FogNodeModelGenerics {
 export class FogNodeModel extends NodeModel<
   NodeModelGenerics & FogNodeModelGenerics
 > {
-  name: string;
+  node: Node | null;
 
-  constructor(name: string) {
+  constructor(node: Node | null) {
     super({
       type: "fog",
     });
-    this.name = name;
+    this.node = node;
     this.addPort(new FogPortModel(PortModelAlignment.RIGHT));
   }
 }

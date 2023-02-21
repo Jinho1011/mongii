@@ -17,6 +17,6 @@ export class FogNodeFactory extends AbstractReactFactory<
   }
 
   generateModel(event: any) {
-    return new FogNodeModel("test");
+    return new FogNodeModel(null);
   }
 }

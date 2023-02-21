@@ -20,6 +20,7 @@ export interface FogNodeWidgetProps {
 }
 
 const FodNodeWidget = (props: FogNodeWidgetProps) => {
+  const node = props.node.node;
   const [isExpanded, setExpanded] = useState(false);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
@@ -31,7 +32,8 @@ const FodNodeWidget = (props: FogNodeWidgetProps) => {
           onClick: () => setExpanded((prevExpanded) => !prevExpanded),
         })}
       >
-        <h2 className={cx("node-title")}>{props.node.name}</h2>
+        <h2 className={cx("node-title")}>{node?.name}</h2>
+        <div className={cx("node-badge")}>Fog</div>
       </div>
       <div {...getCollapseProps()}>
         <div className={cx("divider")}>
@@ -39,16 +41,18 @@ const FodNodeWidget = (props: FogNodeWidgetProps) => {
         </div>
         <div className={cx("information-table")}>
           <div className={cx("information-row")}>
-            <label className={cx("information-label")}>Status</label>
-            <span className={cx("information-value")}>Success</span>
+            <label className={cx("information-label")}>info</label>
+            <span className={cx("information-value")}>{node?.info}</span>
           </div>
           <div className={cx("information-row")}>
-            <label className={cx("information-label")}>Status</label>
-            <span className={cx("information-value")}>Success</span>
+            <label className={cx("information-label")}>ip</label>
+            <span className={cx("information-value")}>{node?.ip}</span>
           </div>
           <div className={cx("information-row")}>
-            <label className={cx("information-label")}>Status</label>
-            <span className={cx("information-value")}>Success</span>
+            <label className={cx("information-label")}>last updated</label>
+            <span className={cx("information-value")}>
+              {new Date(node?.updated_date || "").toDateString()}
+            </span>
           </div>
         </div>
         <div className={cx("divider")}>

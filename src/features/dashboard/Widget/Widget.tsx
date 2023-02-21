@@ -4,6 +4,8 @@ import createEngine, {
   DiagramModel,
   PortModel,
   BaseEvent,
+  BaseModel,
+  NodeModel,
 } from "@projectstorm/react-diagrams";
 import classNames from "classnames/bind";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
@@ -13,12 +15,12 @@ import { FogNodeFactory } from "../Node/FogNode/FogNodeFactory";
 import { EdgeNodeFactory } from "../Node/EdgeNode/EdgeNodeFactory";
 import { EdgeNodeModel, EdgePortModel } from "../Node/EdgeNode/EdgeNodeModel";
 import { SimplePortFactory } from "../Node/SimplePortFactory";
-import { Nodes } from "@/pages";
+import { Node } from "../../../pages";
 
 const cx = classNames.bind(styles);
 
 interface WidgetProps {
-  data: Nodes;
+  data: Node[];
 }
 
 const Widget = ({ data }: WidgetProps) => {
@@ -43,32 +45,37 @@ const Widget = ({ data }: WidgetProps) => {
       )
     );
 
-  const fog = new FogNodeModel("fog node 1");
-  const fogPort = fog.getPort(PortModelAlignment.RIGHT);
-  fog.setPosition(100, 100);
-
-  const edge = new EdgeNodeModel("edge node 1");
-  const edgePort = edge.getPort(PortModelAlignment.LEFT);
-  edge.setPosition(600, 100);
-
-  const edge2 = new EdgeNodeModel("edge node 2");
-  const edgePort2 = edge2.getPort(PortModelAlignment.LEFT);
-  edge2.setPosition(600, 400);
-
-  const link1 = (fogPort as FogPortModel).link(edgePort as EdgePortModel);
-  const link2 = (fogPort as FogPortModel).link(edgePort2 as EdgePortModel);
-
   const model = new DiagramModel();
-  const models = model.addAll(fog, edge, edge2, link1, link2);
 
-  // add a selection listener to each
-  models.forEach((item) =>
-    item.registerListener({
-      eventDidFire: (event: BaseEvent) => {
-        console.log("🚀 ~ file: Widget.tsx:65 ~ Widget ~ models:", models);
-      },
+  const baseModels = data
+    .map((node) => {
+      const fogNode = new FogNodeModel(node);
+      const fogPort = fogNode.getPort(PortModelAlignment.RIGHT);
+
+      const edges = node.edge.map((edge) => {
+        const edgeNode = new EdgeNodeModel(edge.name);
+        const edgePort = edgeNode.getPort(PortModelAlignment.LEFT);
+        return [edgeNode, edgePort];
+      });
+
+      const links = edges.map((edge) => {
+        return (fogPort as FogPortModel).link(edge[1] as EdgePortModel);
+      });
+
+      return [fogNode, ...edges.flat(), ...links];
     })
+    .flat();
+
+  const FogNodes = baseModels.filter(
+    (baseModel) =>
+      Object.getPrototypeOf(baseModel).constructor.name === "FogNodeModel"
   );
+  const edgeNodes = baseModels.filter(
+    (baseModel) =>
+      Object.getPrototypeOf(baseModel).constructor.name === "EdgeNodeModel"
+  );
+
+  console.log(FogNodes);
 
   // model.registerListener({
   //   eventDidFire: (event: BaseEvent) => console.log(models),
@@ -78,6 +85,8 @@ const Widget = ({ data }: WidgetProps) => {
 
   // const state = engine.getStateMachine().getCurrentState();
   // state.deactivated(state);
+
+  model.addAll(...baseModels);
 
   engine.setModel(model);
 
