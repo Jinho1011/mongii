@@ -79,7 +79,10 @@ const Widget = ({ data }: WidgetProps) => {
       return 0;
     })
     .map((baseModel, index) =>
-      (baseModel as FogNodeModel).setPosition(400, 200 + 400 * index)
+      (baseModel as FogNodeModel).setPosition(
+        screen.width / 2 - 410,
+        200 + 400 * index
+      )
     );
   const edgeNodes = baseModels
     .filter(
@@ -95,19 +98,15 @@ const Widget = ({ data }: WidgetProps) => {
     })
     .map((baseModel, index) =>
       (baseModel as EdgeNodeModel).setPosition(
-        900 + 10 * index,
+        screen.width / 2 + 50 + 10 * index,
         200 + 300 * index
       )
     );
 
-  // model.registerListener({
-  //   eventDidFire: (event: BaseEvent) => console.log(models),
-  // });
+  model.setLocked(true);
 
-  // model.setLocked(true);
-
-  // const state = engine.getStateMachine().getCurrentState();
-  // state.deactivated(state);
+  const state = engine.getStateMachine().getCurrentState();
+  state.deactivated(state);
 
   model.addAll(...(baseModels as any));
 
