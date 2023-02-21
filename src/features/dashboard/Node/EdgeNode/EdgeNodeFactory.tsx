@@ -17,6 +17,6 @@ export class EdgeNodeFactory extends AbstractReactFactory<
   }
 
   generateModel(event: any) {
-    return new EdgeNodeModel("test");
+    return new EdgeNodeModel(undefined);
   }
 }

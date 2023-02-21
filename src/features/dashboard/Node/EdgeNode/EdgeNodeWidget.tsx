@@ -20,6 +20,7 @@ export interface EdgeNodeWidgetProps {
 }
 
 const EdgeNodeWidget = (props: EdgeNodeWidgetProps) => {
+  const edge = props.node.edge;
   const [isExpanded, setExpanded] = useState(false);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
@@ -31,7 +32,7 @@ const EdgeNodeWidget = (props: EdgeNodeWidgetProps) => {
           onClick: () => setExpanded((prevExpanded) => !prevExpanded),
         })}
       >
-        <h2 className={cx("node-title")}>{props.node.name}</h2>
+        <h2 className={cx("node-title")}>{edge?.name}</h2>
       </div>
       <div {...getCollapseProps()}>
         <div className={cx("divider")}>

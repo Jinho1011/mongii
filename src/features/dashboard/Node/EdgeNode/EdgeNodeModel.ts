@@ -1,3 +1,4 @@
+import { Edge } from "@/pages";
 import {
   NodeModel,
   NodeModelGenerics,
@@ -36,13 +37,13 @@ export interface EdgeNodeModelGenerics {
 export class EdgeNodeModel extends NodeModel<
   NodeModelGenerics & EdgeNodeModelGenerics
 > {
-  name: string;
+  edge: Edge | undefined;
 
-  constructor(name: string) {
+  constructor(edge: Edge | undefined) {
     super({
       type: "edge",
     });
-    this.name = name;
+    this.edge = edge;
     this.addPort(new EdgePortModel(PortModelAlignment.LEFT));
   }
 }

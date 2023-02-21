@@ -53,7 +53,7 @@ const Widget = ({ data }: WidgetProps) => {
       const fogPort = fogNode.getPort(PortModelAlignment.RIGHT);
 
       const edges = node.edge.map((edge) => {
-        const edgeNode = new EdgeNodeModel(edge.name);
+        const edgeNode = new EdgeNodeModel(edge);
         const edgePort = edgeNode.getPort(PortModelAlignment.LEFT);
         return [edgeNode, edgePort];
       });
@@ -66,16 +66,39 @@ const Widget = ({ data }: WidgetProps) => {
     })
     .flat();
 
-  const FogNodes = baseModels.filter(
-    (baseModel) =>
-      Object.getPrototypeOf(baseModel).constructor.name === "FogNodeModel"
-  );
-  const edgeNodes = baseModels.filter(
-    (baseModel) =>
-      Object.getPrototypeOf(baseModel).constructor.name === "EdgeNodeModel"
-  );
-
-  console.log(FogNodes);
+  const FogNodes = baseModels
+    .filter(
+      (baseModel) =>
+        Object.getPrototypeOf(baseModel).constructor.name === "FogNodeModel" &&
+        baseModel
+    )
+    .sort((a: any, b: any) => {
+      if (b.node && a.node) {
+        return b.node.node_id - a.node.node_id;
+      }
+      return 0;
+    })
+    .map((baseModel, index) =>
+      (baseModel as FogNodeModel).setPosition(400, 200 + 400 * index)
+    );
+  const edgeNodes = baseModels
+    .filter(
+      (baseModel) =>
+        Object.getPrototypeOf(baseModel).constructor.name === "EdgeNodeModel" &&
+        baseModel
+    )
+    .sort((a: any, b: any) => {
+      if (a?.edge && b?.edge) {
+        return b.edge.edge_id - a.edge.edge_id;
+      }
+      return 0;
+    })
+    .map((baseModel, index) =>
+      (baseModel as EdgeNodeModel).setPosition(
+        900 + 10 * index,
+        200 + 300 * index
+      )
+    );
 
   // model.registerListener({
   //   eventDidFire: (event: BaseEvent) => console.log(models),
