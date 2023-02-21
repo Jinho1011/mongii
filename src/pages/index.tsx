@@ -1,4 +1,4 @@
-import Header from "@/features/dashboard/header/Header";
+import Header from "@/features/dashboard/components/header/Header";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
@@ -239,9 +239,12 @@ const data: Nodes = {
 };
 
 export default function Home() {
-  const WidgetComponent = dynamic(() => import("@/features/dashboard/Widget"), {
-    ssr: false,
-  });
+  const WidgetComponent = dynamic(
+    () => import("@/features/dashboard/components/Widget"),
+    {
+      ssr: false,
+    }
+  );
 
   return (
     <>
