@@ -86,7 +86,7 @@ const Widget = ({ data }: WidgetProps) => {
   // const state = engine.getStateMachine().getCurrentState();
   // state.deactivated(state);
 
-  model.addAll(...baseModels);
+  model.addAll(...(baseModels as any));
 
   engine.setModel(model);
 
