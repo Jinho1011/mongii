@@ -55,10 +55,23 @@
   flex: 1;
 }
 
+.module-status-color {
+  &.normal {
+    background: #8fd975;
+  }
+
+  &.abnormal {
+    background: #e9eb80;
+  }
+
+  &.warning {
+    background: #d97f75;
+  }
+}
+
 .module-body-status {
   width: 32px;
   border-bottom-right-radius: 6px;
-  background: #8fd975;
 }
 
 .module-info {

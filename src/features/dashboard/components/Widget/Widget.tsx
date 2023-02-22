@@ -12,6 +12,7 @@ import { EdgeNodeModel, EdgePortModel } from "../Node/EdgeNode/EdgeNodeModel";
 import { SimplePortFactory } from "../Node/SimplePortFactory";
 import { NodeType } from "@/pages";
 import React from "react";
+import _ from "lodash";
 
 const cx = classNames.bind(styles);
 
@@ -78,7 +79,7 @@ const Widget = ({ data }: WidgetProps) => {
     .map((baseModel, index) =>
       (baseModel as FogNodeModel).setPosition(
         screen.width / 2 - 410,
-        100 + 300 * index
+        100 + 400 * index
       )
     );
   const edgeNodes = baseModels
@@ -112,4 +113,7 @@ const Widget = ({ data }: WidgetProps) => {
   return <CanvasWidget className={cx("diagram-container")} engine={engine} />;
 };
 
-export default React.memo(Widget);
+export default React.memo(Widget, (a, b) => {
+  console.log(_.isEqual(a, b));
+  return _.isEqual(a, b);
+});

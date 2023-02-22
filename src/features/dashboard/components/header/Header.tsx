@@ -1,12 +1,6 @@
 import { NodeType } from "@/pages";
 import classNames from "classnames/bind";
-import {
-  DOMAttributes,
-  FormEventHandler,
-  SyntheticEvent,
-  useState,
-} from "react";
-import Modal from "react-modal";
+import { useState } from "react";
 import FormModal from "./FormModal";
 
 import styles from "./Header.module.scss";

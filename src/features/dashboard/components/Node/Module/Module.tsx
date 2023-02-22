@@ -1,5 +1,6 @@
 import { Module } from "@/pages";
 import classNames from "classnames/bind";
+import React from "react";
 import { useState } from "react";
 import useCollapse from "react-collapsed";
 import styles from "./Module.module.scss";
@@ -28,7 +29,16 @@ const Modules = ({ module, index }: ModuleProps) => {
           <span className={cx("module-name")}>{module.name}</span>
         </div>
         <div
-          className={cx("module-status", isExpanded ? "expanded" : "collapsed")}
+          className={cx(
+            "module-status",
+            "module-status-color",
+            module.state === 0
+              ? "normal"
+              : module.state === 1
+              ? "abnormal"
+              : "warning",
+            isExpanded ? "expanded" : "collapsed"
+          )}
         />
       </div>
       <div {...getCollapseProps()}>
@@ -36,16 +46,24 @@ const Modules = ({ module, index }: ModuleProps) => {
           <div className={cx("module-information")}>
             <div className={cx("module-info")}>
               <div className={cx("module-label")}>github</div>
-              <div className={cx("module-value")}>
-                {/* {module.github_url} */}
-              </div>
+              <div className={cx("module-value")}>{module.github_url}</div>
             </div>
           </div>
-          <div className={cx("module-body-status")} />
+          <div
+            className={cx(
+              "module-body-status",
+              "module-status-color",
+              module.state === 0
+                ? "normal"
+                : module.state === 1
+                ? "abnormal"
+                : "warning"
+            )}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default Modules;
+export default React.memo(Modules);
