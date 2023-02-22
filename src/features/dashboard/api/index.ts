@@ -1,7 +1,6 @@
 import { NodeType } from "@/pages";
 import _ from "lodash";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { couldStartTrivia } from "typescript";
 
 interface NodesResponseType {
   data: NodeType[];
@@ -104,6 +103,7 @@ export const useCreateModule = () => {
     ip: string;
     name: string;
     info: string;
+
     priority: number;
     node_id: number | undefined;
     edge_id: number | undefined;
