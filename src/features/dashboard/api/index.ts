@@ -17,7 +17,7 @@ export const useNodes = () => {
 
   return useQuery<NodesResponseType>("nodes", getNodes, {
     refetchInterval: 1000,
-    structuralSharing: false,
+    notifyOnChangeProps: ["data"],
   });
 };
 

@@ -20,7 +20,7 @@ interface WidgetProps {
   data: NodeType[];
 }
 
-const Widget = ({ data }: WidgetProps) => {
+function Widget({ data }: WidgetProps) {
   const engine = createEngine();
 
   engine.getNodeFactories().registerFactory(new FogNodeFactory());
@@ -111,7 +111,7 @@ const Widget = ({ data }: WidgetProps) => {
   engine.setModel(model);
 
   return <CanvasWidget className={cx("diagram-container")} engine={engine} />;
-};
+}
 
 export default React.memo(Widget, (a, b) => {
   return _.isEqual(a, b);

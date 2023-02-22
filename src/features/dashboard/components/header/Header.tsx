@@ -11,6 +11,10 @@ const Header = ({ data }: { data: NodeType[] }) => {
   const [openFogModal, setOpenFogModal] = useState(false);
   const [openEdgeModal, setOpenEdgeModal] = useState(false);
 
+  if (!data) {
+    return <></>;
+  }
+
   return (
     <nav className={cx("header-container")}>
       <div className={cx("logo-container")}>Mongii</div>

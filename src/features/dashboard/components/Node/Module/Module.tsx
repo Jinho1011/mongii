@@ -16,6 +16,8 @@ const Modules = ({ module, index }: ModuleProps) => {
   const [isExpanded, setExpanded] = useState(false);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
+  console.log(module);
+
   return (
     <div className={cx("module-container")}>
       <div
@@ -32,9 +34,9 @@ const Modules = ({ module, index }: ModuleProps) => {
           className={cx(
             "module-status",
             "module-status-color",
-            module.state === 0
+            module.state === "0"
               ? "normal"
-              : module.state === 1
+              : module.state === "1"
               ? "abnormal"
               : "warning",
             isExpanded ? "expanded" : "collapsed"
@@ -53,9 +55,9 @@ const Modules = ({ module, index }: ModuleProps) => {
             className={cx(
               "module-body-status",
               "module-status-color",
-              module.state === 0
+              module.state === "0"
                 ? "normal"
-                : module.state === 1
+                : module.state === "1"
                 ? "abnormal"
                 : "warning"
             )}

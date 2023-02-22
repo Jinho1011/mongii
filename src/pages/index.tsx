@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useNodes } from "@/features/dashboard/api";
 import Header from "@/features/dashboard/components/header/Header";
+import _ from "lodash";
 import dynamic from "next/dynamic";
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export interface Module {
   module_id: number;
@@ -48,24 +48,25 @@ export interface Nodes {
 }
 
 const WidgetComponent = dynamic(
-  () =>
-    import("@/features/dashboard/components/Widget").then((mod) => mod.default),
+  () => import("@/features/dashboard/components/Widget"),
   {
     ssr: false,
   }
 );
 
 function Home() {
-  const { data } = useNodes();
+  const { data: nodes } = useNodes();
 
-  if (!data) {
+  console.log(nodes);
+
+  if (!nodes) {
     return <></>;
   }
 
   return (
     <div>
-      <Header data={data.data} />
-      <WidgetComponent data={data.data} />
+      <Header data={nodes.data} />
+      <WidgetComponent data={nodes.data} />
     </div>
   );
 }
