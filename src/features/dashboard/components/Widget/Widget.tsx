@@ -114,6 +114,5 @@ const Widget = ({ data }: WidgetProps) => {
 };
 
 export default React.memo(Widget, (a, b) => {
-  console.log(_.isEqual(a, b));
   return _.isEqual(a, b);
 });
