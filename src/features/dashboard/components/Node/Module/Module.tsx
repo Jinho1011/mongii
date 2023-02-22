@@ -1,3 +1,4 @@
+import { Module } from "@/pages";
 import classNames from "classnames/bind";
 import { useState } from "react";
 import useCollapse from "react-collapsed";
@@ -5,11 +6,15 @@ import styles from "./Module.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Module = () => {
+interface ModuleProps {
+  module: Module;
+  index: number;
+}
+
+const Modules = ({ module, index }: ModuleProps) => {
   const [isExpanded, setExpanded] = useState(false);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
-  // className={cx("")}
   return (
     <div className={cx("module-container")}>
       <div
@@ -19,8 +24,8 @@ const Module = () => {
         })}
       >
         <div>
-          <span className={cx("module-priority")}>1</span>
-          <span className={cx("module-name")}>module name1</span>
+          <span className={cx("module-priority")}>{module.priority}</span>
+          <span className={cx("module-name")}>{module.name}</span>
         </div>
         <div
           className={cx("module-status", isExpanded ? "expanded" : "collapsed")}
@@ -32,15 +37,7 @@ const Module = () => {
             <div className={cx("module-info")}>
               <div className={cx("module-label")}>github</div>
               <div className={cx("module-value")}>
-                https://github.com/sullog/sullog-clientsullog-client
-              </div>
-            </div>
-            <div className={cx("module-info")}>
-              <div className={cx("module-label")}>script</div>
-              <div className={cx("module-value")}>
-                asdkha sjakfhsjdklhfjksdahfjkhads
-                jkfkadshfjhasjdkhfjkdshajfkhdsjkahfjkh asdkha
-                jkfkadshfjhasjdkhfjkdshajfkhdsjkahfjkh asdkha
+                {/* {module.github_url} */}
               </div>
             </div>
           </div>
@@ -51,4 +48,4 @@ const Module = () => {
   );
 };
 
-export default Module;
+export default Modules;

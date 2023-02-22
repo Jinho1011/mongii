@@ -1,5 +1,8 @@
 .diagram-container {
+  position: absolute;
   background: #eff2fa;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 82px);
+  left: 0;
+  top: 82px;
 }

@@ -1,4 +1,4 @@
-import { Node } from "@/pages";
+import { NodeType } from "@/pages";
 import {
   NodeModel,
   NodeModelGenerics,
@@ -37,9 +37,9 @@ export interface FogNodeModelGenerics {
 export class FogNodeModel extends NodeModel<
   NodeModelGenerics & FogNodeModelGenerics
 > {
-  node: Node | null;
+  node: NodeType | null;
 
-  constructor(node: Node | null) {
+  constructor(node: NodeType | null) {
     super({
       type: "fog",
     });

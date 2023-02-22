@@ -41,16 +41,18 @@ const EdgeNodeWidget = (props: EdgeNodeWidgetProps) => {
         </div>
         <div className={cx("information-table")}>
           <div className={cx("information-row")}>
-            <label className={cx("information-label")}>Status</label>
-            <span className={cx("information-value")}>Success</span>
+            <label className={cx("information-label")}>info</label>
+            <span className={cx("information-value")}>{edge?.info}</span>
           </div>
           <div className={cx("information-row")}>
-            <label className={cx("information-label")}>Status</label>
-            <span className={cx("information-value")}>Success</span>
+            <label className={cx("information-label")}>ip</label>
+            <span className={cx("information-value")}>{edge?.ip}</span>
           </div>
           <div className={cx("information-row")}>
-            <label className={cx("information-label")}>Status</label>
-            <span className={cx("information-value")}>Success</span>
+            <label className={cx("information-label")}>last updated</label>
+            <span className={cx("information-value")}>
+              {new Date(edge?.updated_date || "").toLocaleString()}
+            </span>
           </div>
         </div>
         <div className={cx("divider")}>
@@ -59,7 +61,9 @@ const EdgeNodeWidget = (props: EdgeNodeWidgetProps) => {
         <div className={cx("modules-container")}>
           <label className={cx("information-label")}>Modules</label>
           <div className={cx("modules")}>
-            <Module />
+            {edge?.module.map((v, i) => {
+              return <Module module={v} index={i} key={v.module_id} />;
+            })}
           </div>
         </div>
       </div>

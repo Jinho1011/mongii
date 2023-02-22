@@ -1,11 +1,6 @@
 import createEngine, {
-  DefaultNodeModel,
   PortModelAlignment,
   DiagramModel,
-  PortModel,
-  BaseEvent,
-  BaseModel,
-  NodeModel,
 } from "@projectstorm/react-diagrams";
 import classNames from "classnames/bind";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
@@ -16,6 +11,7 @@ import { EdgeNodeFactory } from "../Node/EdgeNode/EdgeNodeFactory";
 import { EdgeNodeModel, EdgePortModel } from "../Node/EdgeNode/EdgeNodeModel";
 import { SimplePortFactory } from "../Node/SimplePortFactory";
 import { NodeType } from "@/pages";
+import React from "react";
 
 const cx = classNames.bind(styles);
 
@@ -81,7 +77,7 @@ const Widget = ({ data }: WidgetProps) => {
     .map((baseModel, index) =>
       (baseModel as FogNodeModel).setPosition(
         screen.width / 2 - 410,
-        200 + 400 * index
+        100 + 300 * index
       )
     );
   const edgeNodes = baseModels
@@ -99,14 +95,14 @@ const Widget = ({ data }: WidgetProps) => {
     .map((baseModel, index) =>
       (baseModel as EdgeNodeModel).setPosition(
         screen.width / 2 + 50 + 10 * index,
-        200 + 300 * index
+        100 + 300 * index
       )
     );
 
-  model.setLocked(true);
+  // model.setLocked(true);
 
-  const state = engine.getStateMachine().getCurrentState();
-  state.deactivated(state);
+  // const state = engine.getStateMachine().getCurrentState();
+  // state.deactivated(state);
 
   model.addAll(...(baseModels as any));
 
@@ -115,4 +111,4 @@ const Widget = ({ data }: WidgetProps) => {
   return <CanvasWidget className={cx("diagram-container")} engine={engine} />;
 };
 
-export default Widget;
+export default React.memo(Widget);

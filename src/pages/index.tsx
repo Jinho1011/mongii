@@ -1,3 +1,4 @@
+import { useNodes } from "@/features/dashboard/api";
 import Header from "@/features/dashboard/components/header/Header";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
@@ -238,18 +239,24 @@ const data: Nodes = {
   message: "getAll",
 };
 
+const WidgetComponent = dynamic(
+  () => import("@/features/dashboard/components/Widget"),
+  {
+    ssr: false,
+  }
+);
+
 export default function Home() {
-  const WidgetComponent = dynamic(
-    () => import("@/features/dashboard/components/Widget"),
-    {
-      ssr: false,
-    }
-  );
+  const { data } = useNodes();
+
+  if (!data) {
+    return <></>;
+  }
 
   return (
-    <>
+    <div>
       <Header data={data.data} />
       <WidgetComponent data={data.data} />
-    </>
+    </div>
   );
 }

@@ -21,7 +21,7 @@ export interface FogNodeWidgetProps {
 
 const FodNodeWidget = (props: FogNodeWidgetProps) => {
   const node = props.node.node;
-  const [isExpanded, setExpanded] = useState(false);
+  const [isExpanded, setExpanded] = useState(true);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
   return (
@@ -51,7 +51,7 @@ const FodNodeWidget = (props: FogNodeWidgetProps) => {
           <div className={cx("information-row")}>
             <label className={cx("information-label")}>last updated</label>
             <span className={cx("information-value")}>
-              {new Date(node?.updated_date || "").toDateString()}
+              {new Date(node?.updated_date || "").toLocaleString()}
             </span>
           </div>
         </div>
@@ -61,7 +61,9 @@ const FodNodeWidget = (props: FogNodeWidgetProps) => {
         <div className={cx("modules-container")}>
           <label className={cx("information-label")}>Modules</label>
           <div className={cx("modules")}>
-            <Module />
+            {node?.module.map((v, i) => {
+              return <Module module={v} index={i} key={v.module_id} />;
+            })}
           </div>
         </div>
       </div>
