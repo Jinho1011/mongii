@@ -12,7 +12,7 @@ export interface Module {
   info: string;
   priority: number;
   github_url: string;
-  state: 0 | 1 | 2;
+  state: string;
   edge_id: number | null;
   node_id: number | null;
   created_date: string;
