@@ -44,6 +44,7 @@ const Widget = ({ data }: WidgetProps) => {
   const model = new DiagramModel();
 
   const baseModels = data
+    .sort((a, b) => b.node_id - a.node_id)
     .map((node) => {
       const fogNode = new FogNodeModel(node);
       const fogPort = fogNode.getPort(PortModelAlignment.RIGHT);
@@ -70,7 +71,7 @@ const Widget = ({ data }: WidgetProps) => {
     )
     .sort((a: any, b: any) => {
       if (b.node && a.node) {
-        return b.node.node_id - a.node.node_id;
+        return a.node.node_id - b.node.node_id;
       }
       return 0;
     })
@@ -88,7 +89,7 @@ const Widget = ({ data }: WidgetProps) => {
     )
     .sort((a: any, b: any) => {
       if (a?.edge && b?.edge) {
-        return b.edge.edge_id - a.edge.edge_id;
+        return a.edge.node_id - b.edge.node_id;
       }
       return 0;
     })
