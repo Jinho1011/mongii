@@ -43,7 +43,9 @@ const Header = ({ data }: { data: NodeType[] }) => {
         type="edge"
         isOpen={openEdgeModal}
         closeModal={() => setOpenEdgeModal(false)}
-        fogs={data.map((node) => node.name)}
+        fogs={data.map((node) => {
+          return { name: node.name, ip: node.ip };
+        })}
       />
     </nav>
   );

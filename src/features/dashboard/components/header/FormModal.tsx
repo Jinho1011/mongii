@@ -37,7 +37,10 @@ interface FormModalProps {
   type: "fog" | "edge";
   isOpen: boolean;
   closeModal: () => void;
-  fogs?: string[];
+  fogs?: {
+    name: string;
+    ip: string;
+  }[];
 }
 
 interface ModuleType {
@@ -53,12 +56,12 @@ const FormModal = ({ type, isOpen, closeModal, fogs }: FormModalProps) => {
   const [input, setInput] = useState<{
     name: string;
     cloud: string;
-    fog: string;
+    ip: string;
     rootpw: string;
   }>({
     name: "",
-    cloud: "",
-    fog: fogs ? fogs[0] : "",
+    cloud: "0.0.0.0",
+    ip: "",
     rootpw: "",
   });
   const emptyModule: ModuleType = {
@@ -75,7 +78,7 @@ const FormModal = ({ type, isOpen, closeModal, fogs }: FormModalProps) => {
     setInput({
       name: "",
       cloud: "",
-      fog: "",
+      ip: "",
       rootpw: "",
     });
     setModules([emptyModule]);
@@ -123,6 +126,18 @@ const FormModal = ({ type, isOpen, closeModal, fogs }: FormModalProps) => {
             />
           </div>
           <div className={cx("form-row")}>
+            <label className={cx("form-label")}>ip</label>
+            <input
+              className={cx("form-input")}
+              placeholder="0.0.0.0"
+              type="text"
+              value={input.ip}
+              onChange={(e) =>
+                setInput((prev) => ({ ...prev, ip: e.target.value }))
+              }
+            />
+          </div>
+          <div className={cx("form-row")}>
             {type === "fog" ? (
               <>
                 <label className={cx("form-label")}>cloud</label>
@@ -139,21 +154,25 @@ const FormModal = ({ type, isOpen, closeModal, fogs }: FormModalProps) => {
                 <div className={cx("form-radio-container")}>
                   {fogs?.map((fog) => {
                     return (
-                      <label key={fog}>
+                      <label key={fog.name}>
                         <input
                           className={cx("form-input-radio")}
                           type="radio"
                           name="fog"
-                          checked={input.fog === fog}
-                          value={fog}
+                          checked={input.cloud === fog.ip}
+                          value={fog.ip}
                           onChange={(e) =>
                             setInput((prev) => ({
                               ...prev,
-                              fog: e.target.value,
+                              cloud:
+                                fogs?.find((fog) => fog.ip === e.target.value)
+                                  ?.ip || "",
                             }))
                           }
                         />
-                        <span className={cx("form-radio-label")}>{fog}</span>
+                        <span className={cx("form-radio-label")}>
+                          {fog.name}
+                        </span>
                       </label>
                     );
                   })}
