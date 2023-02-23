@@ -18,6 +18,12 @@ export const useNodes = () => {
   return useQuery<NodesResponseType>("nodes", getNodes, {
     refetchInterval: 1000,
     notifyOnChangeProps: ["data"],
+    isDataEqual: (a, b) => {
+      return _.isEqual(
+        a?.data.sort((a, b) => a.node_id - b.node_id),
+        b?.data.sort((a, b) => a.node_id - b.node_id)
+      );
+    },
   });
 };
 

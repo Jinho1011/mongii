@@ -11,7 +11,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useCreateModule, useCreateNode } from "../../api";
+import { useCreateEdge, useCreateModule, useCreateNode } from "../../api";
 
 const cx = classNames.bind(styles);
 
@@ -81,6 +81,7 @@ const FormModal = ({ type, isOpen, closeModal, fogs }: FormModalProps) => {
   };
   const [modules, setModules] = useState<ModuleType[]>([emptyModule]);
   const createNodeMutation = useCreateNode();
+  const createEdgeMutation = useCreateEdge();
   const createModuleMutation = useCreateModule();
 
   const onRequestClose = () => {
@@ -106,6 +107,16 @@ const FormModal = ({ type, isOpen, closeModal, fogs }: FormModalProps) => {
       });
     }
 
+    if (type === "edge") {
+      createEdgeMutation.mutate({
+        ip: input.ip,
+        name: input.name,
+        info: input.info,
+        password: "",
+        node_id: 0,
+      });
+    }
+
     modules.map((module) => {
       createModuleMutation.mutate({
         ip: module.ip,
@@ -118,23 +129,17 @@ const FormModal = ({ type, isOpen, closeModal, fogs }: FormModalProps) => {
       });
     });
 
-    fetch("http://ctr-mongy.bibim-bap.com/remote/register/", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify({
-        type: type === "fog" ? 1 : 0,
-        ...input,
-        modules,
-      }), // body data type must match "Content-Type" header
-    });
+    // fetch("http://ctr-mongy.bibim-bap.com/remote/register/", {
+    //   method: "POST", // *GET, POST, PUT, DELETE, etc.
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     type: type === "fog" ? 1 : 0,
+    //     ...input,
+    //     modules,
+    //   }), // body data type must match "Content-Type" header
+    // });
 
     closeModal();
   };

@@ -11,7 +11,7 @@ import { EdgeNodeFactory } from "../Node/EdgeNode/EdgeNodeFactory";
 import { EdgeNodeModel, EdgePortModel } from "../Node/EdgeNode/EdgeNodeModel";
 import { SimplePortFactory } from "../Node/SimplePortFactory";
 import { NodeType } from "@/pages";
-import React from "react";
+import React, { useState } from "react";
 import _ from "lodash";
 
 const cx = classNames.bind(styles);
@@ -21,7 +21,7 @@ interface WidgetProps {
 }
 
 function Widget({ data }: WidgetProps) {
-  const engine = createEngine();
+  const [engine, setEngine] = useState(createEngine());
 
   engine.getNodeFactories().registerFactory(new FogNodeFactory());
   engine
@@ -114,5 +114,7 @@ function Widget({ data }: WidgetProps) {
 }
 
 export default React.memo(Widget, (a, b) => {
+  console.log(_.isEqual(a, b));
+  // JSON.stringify(a) === JSON.stringify(b)
   return _.isEqual(a, b);
 });

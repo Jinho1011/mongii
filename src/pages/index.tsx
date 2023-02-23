@@ -57,7 +57,7 @@ const WidgetComponent = dynamic(
 function Home() {
   const { data: nodes } = useNodes();
 
-  console.log(nodes);
+  console.log("rerendered");
 
   if (!nodes) {
     return <></>;

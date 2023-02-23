@@ -16,8 +16,6 @@ const Modules = ({ module, index }: ModuleProps) => {
   const [isExpanded, setExpanded] = useState(false);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
-  console.log(module);
-
   return (
     <div className={cx("module-container")}>
       <div
